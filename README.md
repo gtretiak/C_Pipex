@@ -71,8 +71,8 @@ These approaches allow for efficient inter-process communication while maintaini
 
 1. Clone the repository:
    ```
-   git clone https://github.com/gtretiak/C_Pipex/pipex.git
-   cd C_Pipex
+   git clone ... 
+   cd ...
    ```
 
 2. Compile the project:
