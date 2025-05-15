@@ -74,14 +74,15 @@ These approaches allow for efficient inter-process communication while maintaini
    git clone ... 
    cd ...
    ```
+2. Clone the Libft repository https://github.com/gtretiak/C_libft
 
-2. Compile the project:
+3. Compile the project:
    ```
    make        # For mandatory part
    make bonus  # For bonus features
    ```
 
-3. Run the program:
+4. Run the program:
    ```
    # Basic usage
    ./pipex infile "cmd1" "cmd2" outfile
