@@ -6,14 +6,14 @@
 #    By: gtretiak <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/06 18:19:21 by gtretiak          #+#    #+#              #
-#    Updated: 2025/03/28 16:57:38 by gtretiak         ###   ########.fr        #
+#    Updated: 2025/06/14 17:10:58 by gtretiak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 NAME_B = pipex_bonus
 LIBFT = libft.a
-LIBFT_DIR = Libft/
+LIBFT_DIR = C_libft/
 PIPEX_LIB = pipex.a
 PIPEX_LIB_B = pipex_bonus.a
 HEADER = pipex.h
