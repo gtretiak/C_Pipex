@@ -3,6 +3,10 @@
 ## Project Overview
 
 Pipex is an advanced project of implementing the Unix pipe mechanism in C. The program recreates the functionality of shell command pipelines, specifically emulating the behavior of commands like `< file1 cmd1 | cmd2 > file2`. This project provides deep insight into how processes communicate in Unix-based systems and demonstrates fundamental concepts of inter-process communication.
+![command_execution_flow](images/command_execution_flow.png)
+![pipex_system_diagram](images/pipex_system_diagram.png)
+![bonus_features](images/bonus_features.png)
+![error_handling_demo](images/error_handling_demo.png)
 
 ## Educational Objectives
 
@@ -74,14 +78,13 @@ These approaches allow for efficient inter-process communication while maintaini
    git clone ... 
    cd ...
    ```
-2. Clone the Libft repository https://github.com/gtretiak/C_libft
-3. Compile the project:
+2. Compile the project:
    ```
    make        # For mandatory part
    make bonus  # For bonus features
    ```
 
-4. Run the program:
+3. Run the program:
    ```
    # Basic usage
    ./pipex infile "cmd1" "cmd2" outfile
