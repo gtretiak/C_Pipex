@@ -6,7 +6,7 @@
 #    By: gtretiak <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/06 18:19:21 by gtretiak          #+#    #+#              #
-#    Updated: 2025/06/14 17:10:58 by gtretiak         ###   ########.fr        #
+#    Updated: 2025/06/19 13:38:39 by gtretiak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,16 @@ CFLAGS = -Wall -Wextra -Werror
 all: $(LIBFT) $(PIPEX_LIB) $(NAME)
 
 $(LIBFT):
-	@make -C $(LIBFT_DIR)
+	@if [ -d $(LIBFT_DIR) ]; then \
+		echo "C-libft is already cloned."; \
+	else \
+		git clone git@github.com:gtretiak/C_libft.git $(LIBFT_DIR); \
+	fi
+	@if [ -f $(LIBFT_DIR)$(LIBFT) ]; then \
+		echo "libft.a is already compiled."; \
+	else \
+		$(MAKE) -C $(LIBFT_DIR); \
+	fi
 
 $(PIPEX_LIB): $(OBJS) $(HEADER) $(LIBFT_DIR)$(LIBFT)
 	ar -rc $(PIPEX_LIB) $^
@@ -60,22 +69,24 @@ $(NAME_B): $(PIPEX_LIB_B) $(LIBFT) $(OBJS_B)
 		cc $(PIPEX_LIB_B) -L$(LIBFT_DIR) -lft -o $(NAME_B); fi
 clean:
 	rm -f $(OBJS)
-	@make clean -C $(LIBFT_DIR)
+	@if [ -d $(LIBFT_DIR) ]; then make clean -C $(LIBFT_DIR); fi
 
 fclean: clean
-	rm -f $(PIPEX_LIB)
-	rm -f $(NAME)
-	@make fclean -C $(LIBFT_DIR)
+	@if [ -f $(PIPEX_LIB) ]; then rm -f $(PIPEX_LIB); fi
+	@if [ -f $(NAME) ]; then rm -f $(NAME); fi
+	@if [ -d $(LIBFT_DIR) ]; then make fclean -C $(LIBFT_DIR); fi
+	@if [ -d $(LIBFT_DIR) ]; then rm -rf $(LIBFT_DIR); fi
 
 re: fclean all
 
 clean_bonus:
 	rm -f $(OBJS_B)
-	@make clean -C $(LIBFT_DIR)
+	@if [ -d $(LIBFT_DIR) ]; then make clean -C $(LIBFT_DIR); fi
 
 fclean_bonus: clean_bonus
-	rm -f $(PIPEX_LIB_B)
-	rm -f $(NAME_B)
-	@make fclean -C $(LIBFT_DIR)
+	@if [ -f $(PIPEX_LIB_B) ]; then rm -f $(PIPEX_LIB_B); fi
+	@if [ -f $(NAME_B) ]; then rm -f $(NAME_B); fi
+	@if [ -d $(LIBFT_DIR) ]; then make fclean -C $(LIBFT_DIR); fi
+	@if [ -d $(LIBFT_DIR) ]; then rm -rf $(LIBFT_DIR); fi
 
 re_bonus: fclean_bonus bonus
