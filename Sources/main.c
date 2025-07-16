@@ -24,20 +24,19 @@ int	main(int argc, char **av, char **env)
 	if (check >= 1 && argc < 5)
 		return (1);
 	if (check == 2)
-		check--;
+		check--; // input is protected, so we skip it
 	if (pipe(fd) == -1)
 		exit(2);
 	pid = fork();
 	if (pid == -1)
 		exit(2);
 	if (pid == 0)
-	{
+	{	// we adjust argc and av to skip input file
 		ft_run_child(argc - check, av + check, env, fd);
 		return (0);
 	}
 	else
+		// needs the full context
 		ft_run_parent(argc, av, env, fd);
 	return (0);
 }
-/*	if (argc < 5)
-		ft_handle_error(argc, av[argc - 1]);*/
