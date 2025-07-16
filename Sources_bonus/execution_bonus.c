@@ -37,9 +37,9 @@ void	ft_execute(char *arg, t_pipex *pipex)
 	if (!path) // invalid path
 		ft_clean_up(pipex, cmd_with_args);
 	if (pipex->check_infile > 0 && pipex->num_cmd < 2)
-		unlink(pipex->av[pipex->argc - 1]); // just one command
+		unlink(pipex->av[pipex->argc - 1]); // just one command and invalid infile
 	if (pipex->check_lim)
-		unlink("./tmp");
+		unlink("./tmp"); // here_doc mode is active, so we need to remove "tmp"
 	if (execve(path, cmd_with_args, pipex->env) == -1)
 	{
 		if (path != cmd_with_args[0])
@@ -47,7 +47,7 @@ void	ft_execute(char *arg, t_pipex *pipex)
 		ft_free_split(cmd_with_args, 1);
 	}
 }
-
+// Below is the same logic as in Mandatory (not Bonus) part "Sources/"
 char	**ft_find_paths(char **env)
 {
 	int		i;
