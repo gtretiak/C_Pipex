@@ -19,8 +19,8 @@ int	main(int argc, char **av, char **env)
 	ft_init_pipex(argc, av, env, &pipex);
 	if (argc < 3 || (argc < 4 && !ft_strncmp(av[1], "here_doc", 8)))
 		ft_handle_special_error(ERR_ARG, 1);
-	ft_check_files(av[1], av[argc - 1], &pipex);
-	if (pipex.check_infile == 1 && argc < 4)
+	ft_check_files(av[1], av[argc - 1], &pipex); // infile (here_doc) and outfile checking
+	if (pipex.check_infile == 1 && argc < 4) // infile is invalid and there aren´t enough arguments
 		return (1);
 	ft_piping(&pipex);
 	ft_forking(&pipex);
