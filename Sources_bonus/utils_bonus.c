@@ -31,12 +31,12 @@ void	ft_malloc_pipex(t_pipex *pipex)
 	int	i;
 
 	i = 0;
-	pipex->fd = malloc(sizeof(int *) * (pipex->num_cmd - 1));
+	pipex->fd = malloc(sizeof(int *) * (pipex->num_cmd - 1)); // allocating for all the pipes between commands
 	if (!pipex->fd)
 		ft_handle_special_error(ERR_MALLOC, 1);
 	while (i < pipex->num_cmd - 1)
 	{
-		pipex->fd[i] = malloc(sizeof(int) * 2);
+		pipex->fd[i] = malloc(sizeof(int) * 2); // allocating for each of them (read and write ends)
 		if (!pipex->fd[i])
 		{
 			ft_putstr_fd("Malloc error\n", 2);
@@ -44,7 +44,7 @@ void	ft_malloc_pipex(t_pipex *pipex)
 		}
 		i++;
 	}
-	pipex->pid = malloc(sizeof(int) * pipex->num_cmd);
+	pipex->pid = malloc(sizeof(int) * pipex->num_cmd); // allocating to store the PID of each commands process
 	if (!pipex->pid)
 	{
 		ft_putstr_fd("Malloc error\n", 2);
@@ -64,7 +64,7 @@ void	ft_piping(t_pipex *pipex)
 	pipex->num_cmd = ft_get_num_cmd(pipex);
 	if (pipex->num_cmd == 0)
 	{
-		ft_redirection(pipex);
+		ft_redirection(pipex); // pure redirection
 		exit(0);
 	}
 	else if (pipex->num_cmd == 1)
@@ -75,7 +75,7 @@ void	ft_piping(t_pipex *pipex)
 		i = 0;
 		while (i < pipex->num_cmd - 1)
 		{
-			if (pipe(pipex->fd[i]) == -1)
+			if (pipe(pipex->fd[i]) == -1) // pipe creating
 			{
 				ft_putstr_fd("Pipe error\n", 2);
 				free(pipex->pid);
@@ -94,7 +94,7 @@ void	ft_forking(t_pipex *pipex)
 	pipex->infile = ft_get_infile(pipex);
 	while (i < pipex->num_cmd)
 	{
-		pipex->pid[i] = fork();
+		pipex->pid[i] = fork(); // forking a child process for each command
 		if (pipex->pid[i] == -1)
 		{
 			ft_putstr_fd("Fork error\n", 2);
