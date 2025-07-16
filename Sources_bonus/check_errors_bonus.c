@@ -14,24 +14,24 @@
 
 void	ft_check_files(char *input, char *output, t_pipex *pipex)
 {
-	if (access(input, R_OK) == -1 && ft_strncmp(input, "here_doc", 8))
+	if (access(input, R_OK) == -1 && ft_strncmp(input, "here_doc", 8)) // if infile isn´t readable
 	{
-		if (access(input, F_OK) == -1)
+		if (access(input, F_OK) == -1) // it doesn´t exist
 			ft_handle_error(6, input);
 		else
-			ft_handle_error(7, input);
-		pipex->check_infile = 1;
+			ft_handle_error(7, input); // permission denied
+		pipex->check_infile = 1; // flag telling us that the infile is invalid
 	}
 	if (!ft_strncmp(input, "here_doc", 8))
-		pipex->check_lim = 1;
+		pipex->check_lim = 1; // flag to see that we should have a limiter to here_doc file
 	ft_check_output(output);
 }
 
 void	ft_check_output(char *output)
 {
-	if (access(output, F_OK) == 0)
+	if (access(output, F_OK) == 0) // does it exists?
 	{
-		if (access(output, W_OK) == -1)
+		if (access(output, W_OK) == -1) // but not readable?
 		{
 			ft_handle_error(7, output);
 			exit(2);
@@ -55,7 +55,7 @@ int	ft_handle_error(int code, char *name)
 	}
 	else if (code == 8)
 	{
-		usleep(1);
+		usleep(1); // for formatting sync
 		ft_putstr_fd("zsh: command not found: ", 2);
 		ft_putstr_fd(name, 2);
 		write(2, "\n", 1);
