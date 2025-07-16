@@ -20,7 +20,7 @@ int	main(int argc, char **av, char **env)
 
 	if (argc < 3 || argc > 5)
 		ft_handle_arg_error();
-	check = ft_check_files(av[1], av[argc - 1]);
+	check = ft_check_files(av[1], av[argc - 1]); // first arg should be either an input file or here_doc; the last one - output file
 	if (check >= 1 && argc < 5)
 		return (1);
 	if (check == 2)
