@@ -25,19 +25,19 @@ void	ft_execute(char *arg, t_pipex *pipex)
 {
 	char	**cmd_with_args;
 	char	*path;
-
+	
 	cmd_with_args = ft_split(arg, ' ');
-	if (cmd_with_args[0] == NULL)
+	if (cmd_with_args[0] == NULL) // no command was provided
 		ft_free_split(cmd_with_args, 1);
-	if (access(cmd_with_args[0], F_OK) != 0
-		|| ft_strncmp(cmd_with_args[0], "/", 1))
-		path = ft_get_path(cmd_with_args[0], pipex->env);
-	else
+	if (access(cmd_with_args[0], F_OK) != 0 // can´t we access the path?
+		|| ft_strncmp(cmd_with_args[0], "/", 1)) // it isn´t start with "/"
+		path = ft_get_path(cmd_with_args[0], pipex->env); // let´s find out the path
+	else // or use it as is, if we can
 		path = cmd_with_args[0];
-	if (!path)
+	if (!path) // invalid path
 		ft_clean_up(pipex, cmd_with_args);
 	if (pipex->check_infile > 0 && pipex->num_cmd < 2)
-		unlink(pipex->av[pipex->argc - 1]);
+		unlink(pipex->av[pipex->argc - 1]); // just one command
 	if (pipex->check_lim)
 		unlink("./tmp");
 	if (execve(path, cmd_with_args, pipex->env) == -1)
