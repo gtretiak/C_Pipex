@@ -17,25 +17,25 @@ int	ft_check_files(char *input, char *output)
 	int	check;
 
 	check = 0;
-	if (access(input, R_OK) == -1)
+	if (access(input, R_OK) == -1) 
 	{
 		if (access(input, F_OK) == -1)
 		{
-			ft_handle_error(6, input);
+			ft_handle_error(6, input); // no such file
 			check = 1;
 		}
 		else
 		{
-			ft_handle_error(7, input);
+			ft_handle_error(7, input); // access denied
 			check = 2;
 		}
 	}
-	if (access(output, F_OK) == 0)
+	if (access(output, F_OK) == 0) // if the output file exists
 	{
 		if (access(output, W_OK) == -1)
 			check = ft_handle_error(7, output);
 	}
-	if (check == 100)
+	if (check == 100) // if no permission to write
 		exit(2);
 	return (check);
 }
@@ -92,8 +92,3 @@ void	ft_free_split(char **arr, int code)
 	if (code == 1)
 		exit(2);
 }
-/*	if (code < 5 && ft_strncmp(name, "outfile", 7))
-	{
-		ft_putstr_fd("zsh: parse error near `\\n'\n", 2);
-		exit(2);
-	}*/
